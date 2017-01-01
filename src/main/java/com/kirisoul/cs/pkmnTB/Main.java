@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 import com.kirisoul.cs.pkmnTB.structures.TeamChart;
+import com.kirisoul.cs.pkmnTB.logic.ChartAnalyzer;
 
 import freemarker.template.Configuration;
 import spark.ModelAndView;
@@ -35,9 +36,10 @@ public final class Main {
   }
 
   private void run() throws IOException {
-    System.out.println("Ready\n");
+    System.out.println("Ready");
     TypeCalculator tc = new TypeCalculator();
     TeamChart teamC = new TeamChart();
+    ChartAnalyzer ca = new ChartAnalyzer(teamC);
     
     Pokemon x = new Pokemon("", "Psychic", "Fairy");
     Pokemon y = new Pokemon("", "Fire", null);
@@ -55,9 +57,24 @@ public final class Main {
     
     System.out.println("-----------------------------");
     
-    for(String s: teamC.getTeamWeak()){
-      System.out.println("Weak to " + s);
+    for(int i: teamC.getTeamWeak()){
+      System.out.println("Weak to " + tc.convertTypeNum(i));
     }
+    
+    System.out.println("-----------------------------");
+    
+//    teamC.checkCreateWeak("Grass");
+    for(int i: ca.types1()){
+      System.out.println(tc.convertTypeNum(i) + " resists at least 1 weakness!");
+    }
+    
+    System.out.println("-----------------------------");
+    
+    System.out.println("Recommend: "+ ca.recommendTypes());
+    
+    System.out.println("-----------------------------");
+    //Now start finding pokemon based on these types. Score each pkmn as well.
+    
   }
 
   ///////////////

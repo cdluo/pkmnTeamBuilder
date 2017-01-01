@@ -178,13 +178,13 @@ public class TypeCalculator {
     return typeChart[type1][type2];
   }
   
-  public List<String> getWeak(String type){
-    List<String> weaknesses = new ArrayList<String>();
+  public List<Integer> getWeak(String type){
+    List<Integer> weaknesses = new ArrayList<Integer>();
     int typeNum = convertType(type);
     
     for(int i = 0; i < 18; i++){
       if(typeChart[i][typeNum] > 1){
-        weaknesses.add(convertTypeNum(i));
+        weaknesses.add(i);
       }
     }
     

@@ -126,15 +126,15 @@ public class TeamChart {
     }
   }
   
-  public ArrayList<String> getTeamWeak(){
+  public ArrayList<Integer> getTeamWeak(){
     
-    ArrayList<String> weak = new ArrayList<String>();
+    ArrayList<Integer> weak = new ArrayList<Integer>();
     
     for(String s : teamChart.keySet()){
       double[] row = teamChart.get(s);
       
       if((row[3] + row[4]) > (row[0] + row[1] + row[2])){
-        weak.add(s);
+        weak.add(tc.convertType(s));
       }
     }
     
@@ -145,18 +145,18 @@ public class TeamChart {
     
     int newWeak = 0;
     
-    for(String s: tc.getWeak(type)){
-      double[] row = teamChart.get(s);
+    for(int s: tc.getWeak(type)){
+      double[] row = teamChart.get(tc.convertTypeNum(s));
       
       //This means that adding this new weakness unbalances the chart or
       //stacks on an existing weakness.
       if(row == null){
         //Row doesn't exist in table yet, so all 0. Then adding a weakness unbalances it.
-        System.out.println(type + " would create new weakness in " + s);
+        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
         newWeak++;
       }
       else if(row[3] + row[4] + 1 > row[0] + row[1] + row[2]){
-        System.out.println(type + " would create new weakness in " + s);
+        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
         newWeak++;
       }
     }
