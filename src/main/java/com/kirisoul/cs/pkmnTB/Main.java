@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
+import com.kirisoul.cs.pkmnTB.structures.TeamChart;
 
 import freemarker.template.Configuration;
 import spark.ModelAndView;
@@ -36,19 +37,27 @@ public final class Main {
   private void run() throws IOException {
     System.out.println("Ready\n");
     TypeCalculator tc = new TypeCalculator();
-    Pokemon x = new Pokemon("", "Dragon", "Ground");
+    TeamChart teamC = new TeamChart();
     
-    System.out.println("X weaknesses:");
-    for(double[]d : x.getWeak()){
-      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
-    }
+    Pokemon x = new Pokemon("", "Dragon", "Dark");
+    Pokemon y = new Pokemon("", "Steel", "Ghost");
     
-    System.out.println("");
+    teamC.addPokemon(x);
+    teamC.addPokemon(y);
+    teamC.removePokemon(y);
+    teamC.printChart();
     
-    System.out.println("X resistances:");
-    for(double[]d : x.getStrong()){
-      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
-    }
+//    System.out.println("X weaknesses:");
+//    for(double[]d : x.getWeak()){
+//      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
+//    }
+//    
+//    System.out.println("");
+//    
+//    System.out.println("X resistances:");
+//    for(double[]d : x.getStrong()){
+//      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
+//    }
   }
 
   ///////////////
