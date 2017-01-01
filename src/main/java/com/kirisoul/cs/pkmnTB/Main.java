@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
+import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 
 import freemarker.template.Configuration;
@@ -33,9 +34,21 @@ public final class Main {
   }
 
   private void run() throws IOException {
-    System.out.println("Ready");
-    TypeCalculator test = new TypeCalculator();
-    System.out.println(test.getEffective("Electric", "Ground"));
+    System.out.println("Ready\n");
+    TypeCalculator tc = new TypeCalculator();
+    Pokemon x = new Pokemon("", "Dragon", "Ground");
+    
+    System.out.println("X weaknesses:");
+    for(double[]d : x.getWeak()){
+      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
+    }
+    
+    System.out.println("");
+    
+    System.out.println("X resistances:");
+    for(double[]d : x.getStrong()){
+      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
+    }
   }
 
   ///////////////
