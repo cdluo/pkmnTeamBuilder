@@ -39,25 +39,25 @@ public final class Main {
     TypeCalculator tc = new TypeCalculator();
     TeamChart teamC = new TeamChart();
     
-    Pokemon x = new Pokemon("", "Dragon", "Dark");
-    Pokemon y = new Pokemon("", "Steel", "Ghost");
+    Pokemon x = new Pokemon("", "Psychic", "Fairy");
+    Pokemon y = new Pokemon("", "Fire", null);
+    Pokemon z = new Pokemon("", "Water", null);
+    Pokemon a = new Pokemon("", "Dragon", null);
+    Pokemon b = new Pokemon("", "Dark", "Flying");
     
     teamC.addPokemon(x);
     teamC.addPokemon(y);
-    teamC.removePokemon(y);
+    teamC.addPokemon(z);
+    teamC.addPokemon(a);
+    teamC.addPokemon(b);
+    
     teamC.printChart();
     
-//    System.out.println("X weaknesses:");
-//    for(double[]d : x.getWeak()){
-//      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
-//    }
-//    
-//    System.out.println("");
-//    
-//    System.out.println("X resistances:");
-//    for(double[]d : x.getStrong()){
-//      System.out.println(tc.convertTypeNum((int)d[0]) + ": " + d[1]);
-//    }
+    System.out.println("-----------------------------");
+    
+    for(String s: teamC.getTeamWeak()){
+      System.out.println("Weak to " + s);
+    }
   }
 
   ///////////////

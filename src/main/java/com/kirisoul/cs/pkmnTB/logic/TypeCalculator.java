@@ -1,5 +1,8 @@
 package com.kirisoul.cs.pkmnTB.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TypeCalculator {
 
   private static final int NORMAL = 0;
@@ -175,4 +178,16 @@ public class TypeCalculator {
     return typeChart[type1][type2];
   }
   
+  public List<String> getWeak(String type){
+    List<String> weaknesses = new ArrayList<String>();
+    int typeNum = convertType(type);
+    
+    for(int i = 0; i < 18; i++){
+      if(typeChart[i][typeNum] > 1){
+        weaknesses.add(convertTypeNum(i));
+      }
+    }
+    
+    return weaknesses;
+  }
 }
