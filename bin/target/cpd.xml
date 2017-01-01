@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+   <duplication lines="90" tokens="330">
+      <file line="27"
+            path="/gpfs/main/home/cdluo/course/cs032/stars/src/main/java/edu/brown/cs/cdluo/stars/DumbTree.java"/>
+      <file line="35"
+            path="/gpfs/main/home/cdluo/course/cs032/stars/src/main/java/edu/brown/cs/cdluo/stars/KDTree.java"/>
+      <codefragment><![CDATA[  public DumbTree(Star[] stars) {
+    // Can take in anything with a Dimen object
+    buildTree(stars, 0);
+  }
+
+  /**
+   * Recursively builds the KDTree using the stars array provided.
+   * @param stars
+   *          the provided stars
+   * @param curDimen
+   *          the current dimen we are building on/depth of the tree.
+   * @return the root of the tree (at the top call).
+   */
+  public KDNode buildTree(Star[] stars, int curDimen) {
+    sortByDimen(stars, curDimen);
+    int mid = stars.length / 2;
+
+    if (empty) {
+      addRoot(stars[mid]);
+      empty = false;
+      Star[] firstHalf = Arrays.copyOfRange(stars, 0, mid);
+      Star[] secondHalf = Arrays.copyOfRange(stars, mid + 1, stars.length);
+      root.setLeft(buildTree(firstHalf, incDimen(curDimen)));
+      root.setRight(buildTree(secondHalf, incDimen(curDimen)));
+      return root;
+    } else if (stars.length == 0 || stars.length == 1) { // Base case
+      if (stars.length == 0) {
+        return null;
+      } else {
+        KDNode node = new KDNode(stars[0]);
+        return node;
+      }
+    } else { // General Case
+      KDNode n = new KDNode(stars[mid]);
+      Star[] fHalf = Arrays.copyOfRange(stars, 0, mid);
+      Star[] sHalf = Arrays.copyOfRange(stars, mid + 1, stars.length);
+      n.setLeft(buildTree(fHalf, incDimen(curDimen)));
+      n.setRight(buildTree(sHalf, incDimen(curDimen)));
+      return n;
+    }
+  }
+
+  /**
+   * Sorts a stars array by a dimension.
+   * @param stars
+   *          the array to be sorted.
+   * @param cDimen
+   *          the dimen we're sorting on.
+   */
+  public void sortByDimen(Star[] stars, int cDimen) {
+    StarComparator sCompare = new StarComparator(cDimen);
+    Arrays.sort(stars, sCompare);
+  }
+
+  /**
+   * Used to add the root into the tree.
+   * @param s
+   *          the Star to become the root.
+   */
+  public void addRoot(Star s) {
+    KDNode r = new KDNode(s);
+    root = r;
+    tree.add(root);
+  }
+
+  /**
+   * Returns the current dimension +1, unless it would be the max dimension, in
+   * which case it returns 0 to revert back to checking the first index of a
+   * Dimen object.
+   * @param curDimen
+   *          an int representing a dimension that a method is checking on
+   * @return an int representing the next dimension.
+   */
+  public int incDimen(int curDimen) {
+    if (curDimen + 1 == DIMEN) {
+      return 0;
+    } else {
+      return curDimen + 1;
+    }
+  }
+
+  /**
+   * A BFS knn search. Slow, but should be guranteed to get the right answer.
+   * @param k
+   *          Number of neighbors to find
+   * @param point
+   *          the point we're searching relative to.
+   * @return A distqueue holding the nearest neighbors.
+   */
+  public DistQueue knn(int k, Dimen point) {]]></codefragment>
+   </duplication>
+   <duplication lines="59" tokens="113">
+      <file line="171"
+            path="/gpfs/main/home/cdluo/course/cs032/stars/src/main/java/edu/brown/cs/cdluo/stars/DumbTree.java"/>
+      <file line="234"
+            path="/gpfs/main/home/cdluo/course/cs032/stars/src/main/java/edu/brown/cs/cdluo/stars/KDTree.java"/>
+      <codefragment><![CDATA[  }
+
+  /**
+   * Sorts the radius arraylist in ascending order for printing.
+   * @param rad
+   *          the list to be sorted
+   * @return the sorted list.
+   */
+  public ArrayList<DQEntry> sortRadius(ArrayList<DQEntry> rad) {
+    Collections.sort(rad, new DistComparator());
+    return rad;
+  }
+
+  /**.
+   * Gets the root of the tree
+   * @return the root
+   */
+  public KDNode getRoot() {
+    return root;
+  }
+
+  /**
+   * Gets the Tree.
+   * @return the tree.
+   */
+  public ArrayList<KDNode> getTree() {
+    return tree;
+  }
+
+  /**
+   * For the tree's toString method, I just printed the size of the tree, since
+   * printing and organizing the entire tree is difficult to do in a clean way.
+   * @return a string of the size of the tree.
+   */
+  public String toString() {
+    return "Tree Size: " + Integer.toString(tree.size());
+  }
+
+  /**
+   * Checks for equality.
+   * @param kdt2
+   *          the KDTree to compare to.
+   * @return boolean
+   */
+  public boolean equals(KDTree kdt2) {
+    if (tree.equals(kdt2.getTree())) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns a hashcode of this class.
+   * @return a hashcode of this class.
+   */
+  public int hashCode() {
+    return Objects.hash(tree);
+  }
+}]]></codefragment>
+   </duplication>
+</pmd-cpd>

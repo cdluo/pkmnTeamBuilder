@@ -1,0 +1,15 @@
+diff --git a/run b/run
+index d739a0c..4c89aa2 100755
+--- a/run
++++ b/run
+@@ -30,8 +30,8 @@ CP=$(cat .classpath)
+ # package name from the current directory, instead of hard coding.
+ # But this relies on some conventions in naming.  You'll have to call
+ # your class "Main" and use our recommended package structure.
+-
+-PROJECT=$(basename $(pwd))
++CWD=`pwd`
++PROJECT=${CWD##*/}
+ 
+ # The funny symbol: "$@" passes the command-line arguments on from
+ # this script to your Java program.
