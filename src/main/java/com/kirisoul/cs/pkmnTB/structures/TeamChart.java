@@ -152,11 +152,11 @@ public class TeamChart {
       //stacks on an existing weakness.
       if(row == null){
         //Row doesn't exist in table yet, so all 0. Then adding a weakness unbalances it.
-        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
+//        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
         newWeak++;
       }
       else if(row[3] + row[4] + 1 > row[0] + row[1] + row[2]){
-        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
+//        System.out.println(type + " would create new weakness in " + tc.convertTypeNum(s));
         newWeak++;
       }
     }

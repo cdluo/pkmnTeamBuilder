@@ -41,17 +41,19 @@ public final class Main {
     TeamChart teamC = new TeamChart();
     ChartAnalyzer ca = new ChartAnalyzer(teamC);
     
-    Pokemon x = new Pokemon("", "Psychic", "Fairy");
+    Pokemon x = new Pokemon("", "Normal", null);
     Pokemon y = new Pokemon("", "Fire", null);
     Pokemon z = new Pokemon("", "Water", null);
-    Pokemon a = new Pokemon("", "Dragon", null);
-    Pokemon b = new Pokemon("", "Dark", "Flying");
+    Pokemon a = new Pokemon("", "Dragon", "Dark");
+    Pokemon b = new Pokemon("", "Fairy", "Psychic");
+    Pokemon c = new Pokemon("", "Bug", "Steel");
     
     teamC.addPokemon(x);
     teamC.addPokemon(y);
     teamC.addPokemon(z);
     teamC.addPokemon(a);
     teamC.addPokemon(b);
+    teamC.addPokemon(c);
     
     teamC.printChart();
     
@@ -59,13 +61,6 @@ public final class Main {
     
     for(int i: teamC.getTeamWeak()){
       System.out.println("Weak to " + tc.convertTypeNum(i));
-    }
-    
-    System.out.println("-----------------------------");
-    
-//    teamC.checkCreateWeak("Grass");
-    for(int i: ca.types1()){
-      System.out.println(tc.convertTypeNum(i) + " resists at least 1 weakness!");
     }
     
     System.out.println("-----------------------------");
