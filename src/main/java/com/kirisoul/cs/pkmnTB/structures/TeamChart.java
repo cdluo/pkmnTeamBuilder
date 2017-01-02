@@ -2,6 +2,7 @@ package com.kirisoul.cs.pkmnTB.structures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
@@ -141,6 +142,12 @@ public class TeamChart {
     return weak;
   }
   
+  /**
+   * Checks if adding a monotype pokemon of the given type adds weaknesses 
+   * to the overall team.
+   * @param type
+   * @return
+   */
   public int checkCreateWeak(String type){
     
     int newWeak = 0;
@@ -164,9 +171,30 @@ public class TeamChart {
     return newWeak;
   }
   
+  public int checkCreateWeakList(List<Integer> types){
+    int newWeak = 0;
+    
+    //types is the new weaknesses to test
+    for(int i: types){
+      double[] row = teamChart.get(tc.convertTypeNum(i));
+      
+      if(row == null){
+        //Row doesn't exist in table yet, so all 0. Then adding a weakness unbalances it.
+//        System.out.println("New Weak to " + i);
+        newWeak++;
+      }
+      else if(row[3] + row[4] + 1 > row[0] + row[1] + row[2]){
+//        System.out.println("New Weak to " + i);
+        newWeak++;
+      }
+    }
+    
+    return newWeak;
+  }
+  
   public void printChart(){
-    System.out.println("        0    .25   .5   2   4");
-    System.out.println("-----------------------------");
+    System.out.println("Type    0    .25   .5    2   4");
+    System.out.println("----Weaknesses/Resistances---");
     for(String s : teamChart.keySet()){
       System.out.println(s + ": " + teamChart.get(s)[0] + ", " 
           + teamChart.get(s)[1] + ", "

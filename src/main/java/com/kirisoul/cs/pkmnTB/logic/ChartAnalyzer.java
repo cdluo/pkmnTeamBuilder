@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.structures.TeamChart;
 
 public class ChartAnalyzer {
@@ -19,7 +20,7 @@ public class ChartAnalyzer {
   }
   
   public List<String> recommendTypes(){
-    //Double is the score, the list is the types with that score.
+
     ReverseDoubleComparator rdc = new ReverseDoubleComparator();
     Map<Double, ArrayList<String>> scores = new TreeMap<Double, ArrayList<String>>(rdc);
     List<String> recommend = new ArrayList<String>();
@@ -37,24 +38,21 @@ public class ChartAnalyzer {
     }
     
     for(double d: scores.keySet()){
-      System.out.println(d + ": " + scores.get(d).toString());
-    }
-    
-    for(double d: scores.keySet()){
-      if(d >= 0){
+      if(d > 0){  //Do d >= 0 to lower standards
+        System.out.println(d + ": " + scores.get(d).toString());
         for(String s: scores.get(d)){
           recommend.add(s);
         }
       }
     }
     
-    
-    
-    
     return recommend;
   }
   
-  //Gets types that resist at least 1 of the team's weaknesses.
+  /**
+   * Gets types that resist at least 1 of the team's weaknesses.
+   * @return
+   */
   public List<Integer> types1(){
     ArrayList<Integer> types1 = new ArrayList<Integer>();
     ArrayList<Integer> teamWeak = teamC.getTeamWeak();
@@ -71,11 +69,15 @@ public class ChartAnalyzer {
     return types1;
   }
   
-  //If:
-  //  -type resists a weakness (+1)
-  //  -type is super effective on weakness (+.5)
-  //  -type creates new weakness (-1)
-  //  -type not very effective on a weakness (-.5)
+  /**
+   * If:
+   *  -type resists a weakness (+1)
+   *  -type is super effective on weakness (+.5)
+   *  -type creates new weakness (-1)
+   * 
+   * @param type
+   * @return
+   */
   public double[] scoreType(int type){
     double [] typeScore = new double[2];
     typeScore[0] = type;
@@ -91,16 +93,87 @@ public class ChartAnalyzer {
       if(tc.getEffectiveNumber(type, w) > 1){
         score += .5;
       }
-      //Subtracting
-      if(tc.getEffectiveNumber(type, w) < 1){
-        score -= .5;
-      }
     }
     
+    //Subtracting
     score -= teamC.checkCreateWeak(tc.convertTypeNum(type));
     
     typeScore[1] = score;
     
     return typeScore;
   }
+
+  public List<String> recommendPokemon(List<Pokemon> pkmnList){
+    
+    List<String> recommend = new ArrayList<String>();
+    ReverseDoubleComparator rdc = new ReverseDoubleComparator();
+    Map<Double, ArrayList<String>> scores = new TreeMap<Double, ArrayList<String>>(rdc);
+    
+    for(Pokemon p: pkmnList){
+      double score = scorePKMN(p);
+      
+      if(scores.containsKey(score)){
+        scores.get(score).add(p.getName());
+      }else{
+        ArrayList<String> newPKMNContainer = new ArrayList<String>();
+        newPKMNContainer.add(p.getName());
+        scores.put(score, newPKMNContainer);
+      }
+    }
+    
+    for(double d: scores.keySet()){
+      if(d > 0 && recommend.size() < 10){
+        System.out.println(d + ": " + scores.get(d).toString());
+        for(String s: scores.get(d)){
+          recommend.add(s);
+        }
+      }
+    }
+    
+    return recommend;
+    
+  }
+  
+  /**
+   * If:
+   *  -PKMN resists a weakness (+1)
+   *  -PKMN STABS super effective on weakness (+.5)
+   *  -PKMN creates new weakness (-1)
+   * 
+   * @param type
+   * @return
+   */
+  public double scorePKMN(Pokemon p){
+   
+    ArrayList<Integer> teamWeak = teamC.getTeamWeak();
+    double score = 0;
+    
+    //Step 1
+    for(double[] d : p.getStrong()){
+      if(teamWeak.contains((int)d[0])){
+        score += 1;
+      }
+    }
+    
+    //Step 2 (Has at least 1 STAB that hits that team weakness super effective)
+    for(int i: teamWeak){
+      if(tc.getEffectiveNumber(tc.convertType(p.type1()), i) > 1){
+        score += .5;
+      }else if(p.type2() != null){
+        if(tc.getEffectiveNumber(tc.convertType(p.type2()), i) > 1){
+          score += .5;
+        }
+      }
+    }
+      
+    //Step 3 (Adds Weaknesses?)
+    List<Integer> newWeak = new ArrayList<Integer>();
+    for(double[] d: p.getWeak()){
+      newWeak.add((int) d[0]);
+    }
+    score -= teamC.checkCreateWeakList(newWeak);
+    
+    return score;
+  }
+  
 }

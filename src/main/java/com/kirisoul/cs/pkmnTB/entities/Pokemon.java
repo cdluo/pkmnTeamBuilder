@@ -70,4 +70,29 @@ public class Pokemon {
   public ArrayList<double[]> getStrong(){
     return strong;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((strong == null) ? 0 : strong.hashCode());
+    result = prime * result + ((tc == null) ? 0 : tc.hashCode());
+    result = prime * result + ((type1 == null) ? 0 : type1.hashCode());
+    result = prime * result + ((type2 == null) ? 0 : type2.hashCode());
+    result = prime * result + ((weak == null) ? 0 : weak.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    Pokemon p = (Pokemon)obj;
+    
+    if(p.getName() == this.getName()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
 }

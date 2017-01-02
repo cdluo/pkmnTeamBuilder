@@ -2,9 +2,13 @@ package com.kirisoul.cs.pkmnTB;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
+import com.kirisoul.cs.pkmnTB.database.PKMNDB;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 import com.kirisoul.cs.pkmnTB.structures.TeamChart;
@@ -25,7 +29,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 
 public final class Main {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
     new Main(args).run();
   }
 
@@ -35,40 +39,50 @@ public final class Main {
     this.args = args;
   }
 
-  private void run() throws IOException {
-    System.out.println("Ready");
+  private void run() throws IOException, ClassNotFoundException, SQLException {
+    System.out.println("Ready\n");
     TypeCalculator tc = new TypeCalculator();
     TeamChart teamC = new TeamChart();
     ChartAnalyzer ca = new ChartAnalyzer(teamC);
+    PKMNDB db = new PKMNDB();
     
-    Pokemon x = new Pokemon("", "Normal", null);
+    Pokemon x = new Pokemon("", "Psychic", "Fairy");
     Pokemon y = new Pokemon("", "Fire", null);
     Pokemon z = new Pokemon("", "Water", null);
-    Pokemon a = new Pokemon("", "Dragon", "Dark");
-    Pokemon b = new Pokemon("", "Fairy", "Psychic");
-    Pokemon c = new Pokemon("", "Bug", "Steel");
+    Pokemon a = new Pokemon("", "Dragon", null);
+    Pokemon b = new Pokemon("", "Dark", "Flying");
     
     teamC.addPokemon(x);
     teamC.addPokemon(y);
     teamC.addPokemon(z);
     teamC.addPokemon(a);
     teamC.addPokemon(b);
-    teamC.addPokemon(c);
     
     teamC.printChart();
     
-    System.out.println("-----------------------------");
+    System.out.println("-----------Team Weaknesses---");
     
     for(int i: teamC.getTeamWeak()){
       System.out.println("Weak to " + tc.convertTypeNum(i));
     }
     
-    System.out.println("-----------------------------");
+    System.out.println("---------Recommended Types---");
     
-    System.out.println("Recommend: "+ ca.recommendTypes());
+    List<String> recTypes = ca.recommendTypes();
     
-    System.out.println("-----------------------------");
-    //Now start finding pokemon based on these types. Score each pkmn as well.
+    System.out.println("----------Recommended PKMN---");
+    List<Pokemon> candidates = new ArrayList<Pokemon>();
+    
+    for(String s:recTypes){
+      for(Pokemon p: db.getPkmnOfType(s)){
+        if(!candidates.contains(p)){
+          candidates.add(p);
+        }
+      }
+    }
+    
+    List<String> recPKMN = ca.recommendPokemon(candidates);
+    //Top recommendations printed.
     
   }
 
