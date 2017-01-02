@@ -38,7 +38,7 @@ public class ChartAnalyzer {
     }
     
     for(double d: scores.keySet()){
-      if(d > 0){  //Do d >= 0 to lower standards
+      if(d >= 0){  //Do d >= 0 to lower standards, or d > 0 for higher standards
         System.out.println(d + ": " + scores.get(d).toString());
         for(String s: scores.get(d)){
           recommend.add(s);
@@ -122,7 +122,7 @@ public class ChartAnalyzer {
     }
     
     for(double d: scores.keySet()){
-      if(d > 0 && recommend.size() < 10){
+      if(d >= 0 && recommend.size() < 10){ //Do d >= 0 to lower standards, or d > 0 for higher standards
         System.out.println(d + ": " + scores.get(d).toString());
         for(String s: scores.get(d)){
           recommend.add(s);

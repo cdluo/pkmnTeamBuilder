@@ -46,17 +46,33 @@ public final class Main {
     ChartAnalyzer ca = new ChartAnalyzer(teamC);
     PKMNDB db = new PKMNDB();
     
-    Pokemon x = new Pokemon("", "Psychic", "Fairy");
-    Pokemon y = new Pokemon("", "Fire", null);
-    Pokemon z = new Pokemon("", "Water", null);
-    Pokemon a = new Pokemon("", "Dragon", null);
-    Pokemon b = new Pokemon("", "Dark", "Flying");
+    //Kirisoul's Team
     
-    teamC.addPokemon(x);
-    teamC.addPokemon(y);
-    teamC.addPokemon(z);
+    Pokemon a = new Pokemon("", "Psychic", "Fairy");
+    Pokemon b = new Pokemon("", "Fire", null);
+    Pokemon c = new Pokemon("", "Water", null);
+    Pokemon d = new Pokemon("", "Dragon", null);
+    Pokemon e = new Pokemon("", "Dark", "Flying");
+    
+//    Pokemon f = new Pokemon("", "Grass", "Steel");
+    
+//    //pkmnTeamBuilder's Team
+//    
+//    Pokemon a = new Pokemon("", "Psychic", "Fairy");    //Lele
+//    Pokemon b = new Pokemon("", "Normal", null);        //P2
+//    Pokemon c = new Pokemon("", "Poison", "Dark");      //Muk
+//    Pokemon d = new Pokemon("", "Water", "Ground");     //Gastrodon
+//    Pokemon e = new Pokemon("", "Water", "Flying");      //Gyarados
+    
+    //Perfectly Balanced Type Chart!
+    
     teamC.addPokemon(a);
     teamC.addPokemon(b);
+    teamC.addPokemon(c);
+    teamC.addPokemon(d);
+    teamC.addPokemon(e);
+    
+//    teamC.addPokemon(f);
     
     teamC.printChart();
     

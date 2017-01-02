@@ -77,7 +77,6 @@ public class Pokemon {
     int result = 1;
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((strong == null) ? 0 : strong.hashCode());
-    result = prime * result + ((tc == null) ? 0 : tc.hashCode());
     result = prime * result + ((type1 == null) ? 0 : type1.hashCode());
     result = prime * result + ((type2 == null) ? 0 : type2.hashCode());
     result = prime * result + ((weak == null) ? 0 : weak.hashCode());
@@ -86,13 +85,19 @@ public class Pokemon {
 
   @Override
   public boolean equals(Object obj) {
-    Pokemon p = (Pokemon)obj;
-    
-    if(p.getName() == this.getName()){
+    if (this == obj)
       return true;
-    }else{
+    if (obj == null)
       return false;
-    }
+    if (getClass() != obj.getClass())
+      return false;
+    Pokemon other = (Pokemon) obj;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    
+    return true;
   }
-  
 }
