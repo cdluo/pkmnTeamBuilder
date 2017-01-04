@@ -35,8 +35,4 @@ PROJECT=${CWD##*/}
 # The funny symbol: "$@" passes the command-line arguments on from
 # this script to your Java program.
 
-#cp /course/cs032/data/bacon/bacon.sqlite3 /ltmp/
-
-java -cp $TARGET:$CP edu.brown.cs.$USER.$PROJECT.Main "$@"
-
-#rm /ltmp/bacon.sqlite3
+java -cp $TARGET:$CP com.kirisoul.cs.$PROJECT.Main "$@"

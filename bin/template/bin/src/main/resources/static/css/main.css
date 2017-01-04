@@ -1,0 +1,37 @@
+input[type="number"] {
+  width: 3em;
+}
+
+h1{
+	color:white;
+	text-align:center;
+}
+body{
+	background-color:black;
+}
+
+p{
+	color:yellow;
+}
+
+form{
+	color:white;
+}
+
+#rad{
+	float:right;	
+}
+
+#NN{
+	display:inline-block;
+
+}
+
+#results{
+	text-align:center;
+}
+
+textarea{
+	height:200px;
+	text-align:center;
+}

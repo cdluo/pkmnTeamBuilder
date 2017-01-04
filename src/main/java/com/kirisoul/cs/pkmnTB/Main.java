@@ -100,6 +100,10 @@ public final class Main {
     List<String> recPKMN = ca.recommendPokemon(candidates);
     //Top recommendations printed.
     
+//    System.out.println(db.getPkmnByName("Kartana").getWeak().toString());
+    
+    runSparkServer();
+    
   }
 
   ///////////////

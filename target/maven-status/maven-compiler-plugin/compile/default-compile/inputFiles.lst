@@ -1,1 +1,7 @@
-/Users/ChrisLuo/course/cs032/mvnTemplate/src/main/java/com/kirisoul/cs/template/Main.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/Main.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/structures/TeamChart.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/TypeCalculator.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/ChartAnalyzer.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/database/PKMNDB.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/entities/Pokemon.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/ReverseDoubleComparator.java

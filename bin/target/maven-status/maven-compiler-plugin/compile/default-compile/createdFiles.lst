@@ -1,1 +1,9 @@
-edu/brown/cs/cdluo/stars/Main$1.class
+com/kirisoul/cs/pkmnTB/logic/ChartAnalyzer.class
+com/kirisoul/cs/pkmnTB/database/PKMNDB.class
+com/kirisoul/cs/pkmnTB/logic/TypeCalculator.class
+com/kirisoul/cs/pkmnTB/Main$1.class
+com/kirisoul/cs/pkmnTB/entities/Pokemon.class
+com/kirisoul/cs/pkmnTB/logic/ReverseDoubleComparator.class
+com/kirisoul/cs/pkmnTB/Main.class
+com/kirisoul/cs/pkmnTB/Main$FrontHandler.class
+com/kirisoul/cs/pkmnTB/structures/TeamChart.class

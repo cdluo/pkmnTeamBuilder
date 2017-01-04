@@ -4,8 +4,8 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
  
   <modelVersion>4.0.0</modelVersion>
-  <groupId>edu.brown.cs</groupId>
-  <artifactId>stars</artifactId>
+  <groupId>com.kirisoul.cs</groupId>
+  <artifactId>pkmnTeamBuilder</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
  

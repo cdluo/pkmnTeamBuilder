@@ -49,4 +49,18 @@ public class PKMNDB {
     
     return pkmn;
   }
+  
+  public Pokemon getPkmnByName(String name) throws SQLException{
+    String query = "SELECT * FROM PKMN WHERE name = ?;";
+    
+    PreparedStatement prep = conn.prepareStatement(query);
+    prep.setString(1, name);
+    
+    ResultSet rs = prep.executeQuery();
+    
+    rs.next();
+    Pokemon toReturn = new Pokemon(rs.getString(1), rs.getString(2), rs.getString(3));
+    
+    return toReturn;
+  }
 }
