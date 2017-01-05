@@ -13,6 +13,7 @@ import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 import com.kirisoul.cs.pkmnTB.structures.TeamChart;
 import com.kirisoul.cs.pkmnTB.logic.ChartAnalyzer;
+import com.kirisoul.cs.pkmnTB.autoCorrect.AutoCorrecter;
 
 import freemarker.template.Configuration;
 import spark.ModelAndView;
@@ -45,6 +46,7 @@ public final class Main {
     TeamChart teamC = new TeamChart();
     ChartAnalyzer ca = new ChartAnalyzer(teamC);
     PKMNDB db = new PKMNDB();
+    AutoCorrecter ac = new AutoCorrecter(db);
     
     //Kirisoul's Team
     
@@ -98,11 +100,14 @@ public final class Main {
     }
     
     List<String> recPKMN = ca.recommendPokemon(candidates);
-    //Top recommendations printed.
     
-//    System.out.println(db.getPkmnByName("Kartana").getWeak().toString());
+    for(String s: ac.generateSuggestions("K")){
+      //Format must be: capital letter, lower case letters, ensure this
+      //with a new args parser!
+      System.out.println(s);
+    }
     
-    runSparkServer();
+//    runSparkServer();
     
   }
 
@@ -123,11 +128,8 @@ public final class Main {
     return new FreeMarkerEngine(config);
   }
 
-  /**
-   * Runs the spark Server with 3 paths: 1 homepage, and 2 results pages.
-   */
   private void runSparkServer() {
-    Spark.externalStaticFileLocation("src/main/resources/static");
+    Spark.externalStaticFileLocation("src/main/resources/public");
     FreeMarkerEngine freeMarker = createEngine();
 
     // Setup Spark Routes
@@ -142,8 +144,7 @@ public final class Main {
   private class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title",
-          "Template");
+      Map<String, Object> variables = ImmutableMap.of();
       return new ModelAndView(variables, "query.ftl");
     }
   }

@@ -63,4 +63,21 @@ public class PKMNDB {
     
     return toReturn;
   }
+  
+  public List<String> getAllPkmnNames() throws SQLException{
+    List<String> names = new ArrayList<String>();
+    
+    String query = "SELECT Name FROM PKMN;";
+    
+    PreparedStatement prep = conn.prepareStatement(query);
+
+    ResultSet rs = prep.executeQuery();
+    
+    while (rs.next()) {
+      String toAdd = rs.getString(1);
+      names.add(toAdd);
+    }
+    
+    return names;
+  }
 }
