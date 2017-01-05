@@ -1,7 +1,12 @@
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/autoCorrect/Trie.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/Main.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/autoCorrect/ArgsParser.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/autoCorrect/TrieNode.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/structures/TeamChart.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/TypeCalculator.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/autoCorrect/RankComparator.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/ChartAnalyzer.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/database/PKMNDB.java
+/Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/autoCorrect/AutoCorrecter.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/entities/Pokemon.java
 /Users/ChrisLuo/kiriStudios/pkmnTB/src/main/java/com/kirisoul/cs/pkmnTB/logic/ReverseDoubleComparator.java

@@ -37,6 +37,27 @@ h1{
 	resize:none;
 }
 
+.autoBox{
+	position:absolute;
+	left:2.25em;
+	width:100px;
+	height:100px;
+	background-color:gray;
+	overflow-y:scroll;
+	z-index:1;
+	visibility:hidden;
+}
+
+.autoSuggestion{
+	font-size:1em;
+	width:100%;
+	display:block;
+	text-align:center;
+	margin:5px auto;
+	z-index:2;
+	cursor:pointer
+}
+
 #typeChart{
 	position:absolute;
 	right:10px;

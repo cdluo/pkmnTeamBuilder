@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
 import com.kirisoul.cs.pkmnTB.database.PKMNDB;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
@@ -17,8 +18,10 @@ import com.kirisoul.cs.pkmnTB.autoCorrect.AutoCorrecter;
 
 import freemarker.template.Configuration;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -35,44 +38,53 @@ public final class Main {
   }
 
   private String[] args;
+  private static AutoCorrecter ac;
+  private static PKMNDB db;
+  private static TeamChart teamC;
+  private static TypeCalculator tc;
+  private static ChartAnalyzer ca;
+  
+  private static final Gson GSON = new Gson();
 
   private Main(String[] args) {
     this.args = args;
   }
 
+  /////////////////////////
+  // * Main Run Method * //
+  /////////////////////////
+  
   private void run() throws IOException, ClassNotFoundException, SQLException {
     System.out.println("Ready\n");
-    TypeCalculator tc = new TypeCalculator();
-    TeamChart teamC = new TeamChart();
-    ChartAnalyzer ca = new ChartAnalyzer(teamC);
-    PKMNDB db = new PKMNDB();
-    AutoCorrecter ac = new AutoCorrecter(db);
+    
+    teamC = new TeamChart();
+    db = new PKMNDB();
+    ac = new AutoCorrecter(db);
+    tc = new TypeCalculator();
+    ca = new ChartAnalyzer(teamC);
+    
+    //Loading the Team
     
     //Kirisoul's Team
-    
-    Pokemon a = new Pokemon("", "Psychic", "Fairy");
-    Pokemon b = new Pokemon("", "Fire", null);
-    Pokemon c = new Pokemon("", "Water", null);
-    Pokemon d = new Pokemon("", "Dragon", null);
-    Pokemon e = new Pokemon("", "Dark", "Flying");
-    
+//    Pokemon a = new Pokemon("", "Psychic", "Fairy");
+//    Pokemon b = new Pokemon("", "Fire", null);
+//    Pokemon c = new Pokemon("", "Water", null);
+//    Pokemon d = new Pokemon("", "Dragon", null);
+//    Pokemon e = new Pokemon("", "Dark", "Flying");
 //    Pokemon f = new Pokemon("", "Grass", "Steel");
     
-//    //pkmnTeamBuilder's Team
-//    
-//    Pokemon a = new Pokemon("", "Psychic", "Fairy");    //Lele
-//    Pokemon b = new Pokemon("", "Normal", null);        //P2
-//    Pokemon c = new Pokemon("", "Poison", "Dark");      //Muk
+//    //pkmnTeamBuilder's Team  
+//    Pokemon a = new Pokemon("", "Dragon", "Grass");    //Exxegutor
+//    Pokemon b = new Pokemon("", "Steel", "Fairy");        //Klefki
+//    Pokemon c = new Pokemon("", "Water", "Ground");      //Gastrodon
 //    Pokemon d = new Pokemon("", "Water", "Ground");     //Gastrodon
 //    Pokemon e = new Pokemon("", "Water", "Flying");      //Gyarados
     
-    //Perfectly Balanced Type Chart!
-    
-    teamC.addPokemon(a);
-    teamC.addPokemon(b);
-    teamC.addPokemon(c);
-    teamC.addPokemon(d);
-    teamC.addPokemon(e);
+//    teamC.addPokemon(a);
+//    teamC.addPokemon(b);
+//    teamC.addPokemon(c);
+//    teamC.addPokemon(d);
+//    teamC.addPokemon(e);
     
 //    teamC.addPokemon(f);
     
@@ -101,19 +113,16 @@ public final class Main {
     
     List<String> recPKMN = ca.recommendPokemon(candidates);
     
-    for(String s: ac.generateSuggestions("K")){
-      //Format must be: capital letter, lower case letters, ensure this
-      //with a new args parser!
-      System.out.println(s);
-    }
+    //Auto correct format must be: capital letter, lower case letters. 
+    //Check this in a new args parser.
     
-//    runSparkServer();
+    runSparkServer();
     
   }
 
-  ///////////////
-  // Front End //
-  ///////////////
+  ///////////////////
+  // * Front End * //
+  ///////////////////
   
   private static FreeMarkerEngine createEngine() {
     Configuration config = new Configuration();
@@ -134,7 +143,17 @@ public final class Main {
 
     // Setup Spark Routes
     Spark.get("/home", new FrontHandler(), freeMarker);
+    Spark.post("/autocorrect", new AutoHandler());
+    Spark.post("/findPkmn", new FindPkmnHandler());
+    Spark.post("/loadTeam", new LoadTeamHandler());
+    Spark.post("/teamWeak", new TeamWeakHandler());
+    Spark.post("/recTypes", new RecTypesHandler());
+    Spark.post("/recPKMN", new RecPKMNHandler());
   }
+  
+  //////////////////
+  // * Handlers * //
+  //////////////////
 
   /**
    * Handles the homepage.
@@ -146,6 +165,93 @@ public final class Main {
     public ModelAndView handle(Request req, Response res) {
       Map<String, Object> variables = ImmutableMap.of();
       return new ModelAndView(variables, "query.ftl");
+    }
+  }
+  
+  private static class AutoHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String input = qm.value("input"); // Got the input here
+      List<String> result = ac.generateSuggestions(input);
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class FindPkmnHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String input = qm.value("input"); // Got the input here
+      Pokemon result;
+      
+      try {
+        result = db.getPkmnByName(input);
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        System.out.println("ERROR: Invalid Pokemon");
+        e.printStackTrace();
+        result = new Pokemon("ERROR", "Invalid", "Pokemon");
+      }
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class LoadTeamHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String input = qm.value("input"); // Got the input here
+      List<String> result = ac.generateSuggestions(input);
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class TeamWeakHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      List<String> result = ac.generateSuggestions("");
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class RecTypesHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      List<String> result = ac.generateSuggestions("");
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class RecPKMNHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      List<String> result = ac.generateSuggestions("");
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          result).build();
+
+      return GSON.toJson(variables);
     }
   }
 }
