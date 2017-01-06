@@ -44,16 +44,25 @@
 	</div>
 
 	<div id="typeChart">
-		<p style="margin:0 0; text-align:center;"> Type Chart </p>
-		<div class="typeRow">
-		</div>
+		<p id="typeChartText"></p>
 	</div>
 </div>
 
 <div id="recPKMN">
+	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Pokemon: </p>
+		<p id="recPKMNText"></p>
 </div>
 
 <div id="recTypes">
+	<div style="display:block">
+		<p style = "position:relative; display:inline-block; margin-left:10px"> Your team is weak to: </p>
+		<p id="teamWeak"></p>
+	</div>
+
+	<div style = "display:block">
+		<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Types: </p>
+		<p id="recTypesText"></p>
+	</div>
 </div>
 
 </#assign>

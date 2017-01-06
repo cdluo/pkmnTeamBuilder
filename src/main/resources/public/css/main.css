@@ -64,6 +64,7 @@ h1{
 	width:500px;
 	height:500px;
 	background-color:gray;
+	text-align:center;
 }
 
 .typeRow{
@@ -90,4 +91,27 @@ h1{
 	width:750px;
 	margin:1em auto;
 	background-color:red;
+}
+
+#teamWeak{
+	position:relative;
+	display:inline-block;
+	margin-left:10px;
+}
+
+#recTypesText{
+	position:relative;
+	display:inline-block;
+	margin-left:10px;
+}
+
+#recPKMNText{
+	position:relative;
+	display:inline-block;
+	margin-left:10px;
+}
+
+#typeChartText{
+	display:block;
+	white-space:pre-wrap;
 }

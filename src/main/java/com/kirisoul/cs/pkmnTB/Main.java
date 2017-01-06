@@ -43,6 +43,7 @@ public final class Main {
   private static TeamChart teamC;
   private static TypeCalculator tc;
   private static ChartAnalyzer ca;
+  private static boolean teamLoaded = false;
   
   private static final Gson GSON = new Gson();
 
@@ -88,13 +89,13 @@ public final class Main {
     
 //    teamC.addPokemon(f);
     
-    teamC.printChart();
-    
-    System.out.println("-----------Team Weaknesses---");
-    
-    for(int i: teamC.getTeamWeak()){
-      System.out.println("Weak to " + tc.convertTypeNum(i));
-    }
+//    teamC.printChart();
+//    
+//    System.out.println("-----------Team Weaknesses---");
+//    
+//    for(int i: teamC.getTeamWeak()){
+//      System.out.println("Weak to " + tc.convertTypeNum(i));
+//    }
     
     System.out.println("---------Recommended Types---");
     
@@ -146,6 +147,7 @@ public final class Main {
     Spark.post("/autocorrect", new AutoHandler());
     Spark.post("/findPkmn", new FindPkmnHandler());
     Spark.post("/loadTeam", new LoadTeamHandler());
+    Spark.post("/teamChart", new TeamChartHandler());
     Spark.post("/teamWeak", new TeamWeakHandler());
     Spark.post("/recTypes", new RecTypesHandler());
     Spark.post("/recPKMN", new RecPKMNHandler());
@@ -208,12 +210,44 @@ public final class Main {
   private static class LoadTeamHandler implements Route {
     @Override
     public Object handle(final Request req, final Response res) {
+      teamC.clearChart();
+      
       QueryParamsMap qm = req.queryMap();
-      String input = qm.value("input"); // Got the input here
-      List<String> result = ac.generateSuggestions(input);
+      
+      for(int i=0; i < 6; i++){
+        if(qm.value("p" + i + "Name") != "" && qm.value("p" + i + "Name") != null){
+          String name = qm.value("p"+ i + "Name");
+          System.out.println("Adding " + name);
+          String type1 = qm.value("p"+ i + "t1");
+          String type2 = null;
+          if(qm.value("p"+ i + "t2") != "" && qm.value("p"+ i + "t2") != null){
+            type2 = qm.value("p"+ i + "t2");
+          }
+          Pokemon toAdd = new Pokemon(name, type1, type2);
+          teamC.addPokemon(toAdd);
+        }
+      }
+      
+      System.out.println(teamC.toString());
 
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
-          result).build();
+          "true").build();
+      
+      teamLoaded = true;
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  private static class TeamChartHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      while(!teamLoaded){
+        //Wait for the team to load
+      }
+
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          teamC.toString()).build();
 
       return GSON.toJson(variables);
     }
@@ -222,10 +256,18 @@ public final class Main {
   private static class TeamWeakHandler implements Route {
     @Override
     public Object handle(final Request req, final Response res) {
-      List<String> result = ac.generateSuggestions("");
+      List<String> weak = new ArrayList<String>();
+      
+      while(!teamLoaded){
+        //Wait for the team to load
+      }
+      
+      for(int i: teamC.getTeamWeak()){
+        weak.add(tc.convertTypeNum(i));
+      }
 
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
-          result).build();
+          weak).build();
 
       return GSON.toJson(variables);
     }
@@ -234,10 +276,12 @@ public final class Main {
   private static class RecTypesHandler implements Route {
     @Override
     public Object handle(final Request req, final Response res) {
-      List<String> result = ac.generateSuggestions("");
+      while(!teamLoaded){
+        //Wait for the team to load
+      }
 
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
-          result).build();
+          ca.recommendTypes()).build();
 
       return GSON.toJson(variables);
     }
@@ -246,10 +290,32 @@ public final class Main {
   private static class RecPKMNHandler implements Route {
     @Override
     public Object handle(final Request req, final Response res) {
-      List<String> result = ac.generateSuggestions("");
+      while(!teamLoaded){
+        //Wait for the team to load
+      }
+      
+      List<String> recTypes = ca.recommendTypes();
+      
+      System.out.println("----------Recommended PKMN---");
+      List<Pokemon> candidates = new ArrayList<Pokemon>();
+      
+      for(String s:recTypes){
+        try {
+          for(Pokemon p: db.getPkmnOfType(s)){
+            if(!candidates.contains(p)){
+              candidates.add(p);
+            }
+          }
+        } catch (SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+      
+      List<String> recPKMN = ca.recommendPokemon(candidates);
 
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
-          result).build();
+          recPKMN).build();
 
       return GSON.toJson(variables);
     }

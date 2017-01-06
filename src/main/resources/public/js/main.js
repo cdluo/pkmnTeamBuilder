@@ -63,22 +63,51 @@ $("#submit").click(function() {
 		data['p' + i + 't2'] = t2.value;
 	}
 
-	console.log(data);
-
 	$.post("/loadTeam", data, function(response) {
 		console.log("Loaded Team");
 	});
 
+	$.post("/teamChart", function(response) {
+		var teamChart = JSON.parse(response).result;
+		var teamChartBreak = teamChart.replace(/\n/g, '<br/>');
+
+		//teamChart is currently just a string.
+
+		$("#typeChartText").html(teamChartBreak);
+	});
+
 	$.post("/teamWeak", function(response) {
-		console.log("Loaded Team Weaknesses");
+		var teamWeak = JSON.parse(response).result;
+		var weakString = "";
+		for(var i = 0; i< teamWeak.length; i++){
+			weakString += teamWeak[i];
+			weakString += ", ";
+		}
+
+		$("#teamWeak").html(weakString);
 	});
 
 	$.post("/recTypes", function(response) {
-		console.log("Loaded Recommended Types");
+		var recType = JSON.parse(response).result;
+		var recTypeString = "";
+		for(var i = 0; i< recType.length; i++){
+			recTypeString += recType[i];
+			recTypeString += ", ";
+		}
+
+		$("#recTypesText").html(recTypeString);
 	});
 
 	$.post("/recPKMN", function(response) {
-		console.log("Loaded Recommended PKMN");
+		var recPKMN = JSON.parse(response).result;
+		console.log(recPKMN);
+		var recPKMNString = "";
+		for(var i = 0; i< recPKMN.length; i++){
+			recPKMNString += recPKMN[i];
+			recPKMNString += ", ";
+		}
+
+		$("#recPKMNText").html(recPKMNString);
 	});
 
 });

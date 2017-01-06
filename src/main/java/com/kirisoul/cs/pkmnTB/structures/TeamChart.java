@@ -2,6 +2,7 @@ package com.kirisoul.cs.pkmnTB.structures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
@@ -9,18 +10,18 @@ import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 
 public class TeamChart {
   
-  private ArrayList<String> pkmn;
+  private ArrayList<Pokemon> pkmn;
   private HashMap<String, double[]> teamChart;
   private TypeCalculator tc;
 
   public TeamChart(){
-    pkmn = new ArrayList<String>();
+    pkmn = new ArrayList<Pokemon>();
     teamChart = new HashMap<String, double[]>();
     tc = new TypeCalculator();
   }
   
   public void addPokemon(Pokemon p){
-    pkmn.add(p.getName());
+    pkmn.add(p);
     
     //Adding Weaknesses to Chart
     for(double[] d: p.getWeak()){
@@ -74,7 +75,7 @@ public class TeamChart {
   }
   
   public void removePokemon(Pokemon p){
-    if(!pkmn.remove(p.getName())){
+    if(!pkmn.remove(p)){
      System.out.println("ERROR: Pokemon " + p.getName() + " not in the chart!"); 
     }
     
@@ -192,15 +193,30 @@ public class TeamChart {
     return newWeak;
   }
   
-  public void printChart(){
-    System.out.println("Type    0    .25   .5    2   4");
-    System.out.println("----Weaknesses/Resistances---");
+  public void clearChart(){
+    Iterator<Pokemon> iter = pkmn.iterator();
+    List<Pokemon> toRemove = new ArrayList<Pokemon>();
+    while(iter.hasNext()){
+      toRemove.add(iter.next());
+    }
+    
+    for(Pokemon p: toRemove){
+      removePokemon(p);
+    }
+  }
+  
+  public String toString(){
+    StringBuilder sb = new StringBuilder();
+    sb.append("Type    0    .25   .5    2   4\n");
+    sb.append("----Weaknesses/Resistances---\n");
     for(String s : teamChart.keySet()){
-      System.out.println(s + ": " + teamChart.get(s)[0] + ", " 
+      sb.append(s + ": " + teamChart.get(s)[0] + ", " 
           + teamChart.get(s)[1] + ", "
           + teamChart.get(s)[2] + ", "
           + teamChart.get(s)[3] + ", "
-          + teamChart.get(s)[4]);
+          + teamChart.get(s)[4] + "\n");
     }
+    
+    return sb.toString();
   }
 }
