@@ -1,6 +1,6 @@
 <#assign content>
 
-<h1> Smart Pokemon Team Builder</h1>
+<h1> Professor Bina Ry</h1>
 
 <div id="totalChart">
 	<div id="pkmnSelectors">
@@ -8,36 +8,42 @@
 			<p>Name: </p> <textarea class="autocorrect"></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
 			<p>Name: </p> <textarea class="autocorrect"></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
 			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
 			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
 			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
 			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
 			<p>Type1: </p> <textarea class="type1"></textarea>
 			<p>Type2: </p> <textarea class="type2"></textarea>
+			<button class="selectorClear">Clear</button>
 		</div>
 
 		<button id="submit">Submit</button>

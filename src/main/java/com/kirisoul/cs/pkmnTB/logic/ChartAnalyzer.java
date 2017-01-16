@@ -11,8 +11,11 @@ import com.kirisoul.cs.pkmnTB.structures.TeamChart;
 
 public class ChartAnalyzer {
 
-  TeamChart teamC;
-  TypeCalculator tc;
+  private TeamChart teamC;
+  private TypeCalculator tc;
+  private String formattedRecTypes;
+  private String formattedRecPKMN;
+  
   
   public ChartAnalyzer(TeamChart teamC1){
     teamC = teamC1;
@@ -37,14 +40,17 @@ public class ChartAnalyzer {
       }
     }
     
+    StringBuilder sb = new StringBuilder();
     for(double d: scores.keySet()){
       if(d >= 0){  //Do d >= 0 to lower standards, or d > 0 for higher standards
-        System.out.println(d + ": " + scores.get(d).toString());
+        sb.append(d + ": " + scores.get(d).toString() +"\n");
         for(String s: scores.get(d)){
           recommend.add(s);
         }
       }
     }
+    
+    formattedRecTypes = sb.toString();
     
     return recommend;
   }
@@ -121,14 +127,18 @@ public class ChartAnalyzer {
       }
     }
     
+    StringBuilder sb = new StringBuilder();
+    
     for(double d: scores.keySet()){
       if(d >= 0 && recommend.size() < 10){ //Do d >= 0 to lower standards, or d > 0 for higher standards
-        System.out.println(d + ": " + scores.get(d).toString());
+        sb.append(d + ": " + scores.get(d).toString() + "\n");
         for(String s: scores.get(d)){
           recommend.add(s);
         }
       }
     }
+    
+    formattedRecPKMN = sb.toString();
     
     return recommend;
     
@@ -176,4 +186,11 @@ public class ChartAnalyzer {
     return score;
   }
   
+  public String getRecTypesString(){
+    return formattedRecTypes;
+  }
+  
+  public String getRecPKMNString(){
+    return formattedRecPKMN;
+  }
 }
