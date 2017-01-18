@@ -1,10 +1,21 @@
+/////////////////
+// JQuery/AJAX //
+/////////////////
+
+/*
+	Gets rid of the auto suggestion box when anywhere else is clicked.
+*/
 $(document).click(function() {
     $(".autoBox").css("visibility","hidden");
 });
 
-//Why do you have to do it this way? Read on() documentation.
-//Dynamically generated elements...
+/*
+	Fills in team selector when suggestion is clicked.
+*/
 $(document).on("click", ".autoSuggestion", function(e){
+
+	//Why do you have to do it this way? Read on() documentation.
+	//Dynamically generated elements...
 
 	var selected = $(this)[0].innerHTML;	//Gets inner HTML (Suggested PKMN's name)
 	var data = {input:selected};
@@ -24,6 +35,9 @@ $(document).on("click", ".autoSuggestion", function(e){
 	})
 });
 
+/*
+	Gets auto correct suggestions as user types
+*/
 $(".autocorrect").on("keyup", function(e){
 	var userInput = $(this).val();
 	var data = {input:userInput};
@@ -48,6 +62,9 @@ $(".autocorrect").on("keyup", function(e){
 	})
 });
 
+/*
+	Submits the team form and calls all the "fill" functions.
+*/
 $("#submit").click(function() {
 	var selectors = $(".pkmnSelector");
 
@@ -64,9 +81,36 @@ $("#submit").click(function() {
 	}
 
 	$.post("/loadTeam", data, function(response) {
-		console.log("Loaded Team");
+		fillTeamChart();
+		fillTeamWeak();
+		fillRecTypes();
+		fillRecPKMM();
 	});
+});
 
+/*
+	Clears each respective entry in the team form when clicked.
+*/
+$(".selectorClear").click(function() {
+	var name = $(this).parent().find(".autocorrect");
+	var type1 = $(this).parent().find(".type1");
+	var type2 = $(this).parent().find(".type2");
+
+	name.val("");
+	type1.val("");
+	type2.val("");
+
+});
+
+
+////////////////////
+// Fill Functions //
+////////////////////
+
+/*
+	Fill functions populate their respective windows.
+*/
+function fillTeamChart(){
 	$.post("/teamChart", function(response) {
 		var teamChart = JSON.parse(response).result;
 		var teamChartBreak = teamChart.replace(/\n/g, '<br/>');
@@ -75,7 +119,9 @@ $("#submit").click(function() {
 
 		$("#typeChartText").html(teamChartBreak);
 	});
+}
 
+function fillTeamWeak(){
 	$.post("/teamWeak", function(response) {
 		var teamWeak = JSON.parse(response).result;
 		var weakString = "";
@@ -86,7 +132,9 @@ $("#submit").click(function() {
 
 		$("#teamWeak").html(weakString);
 	});
+}
 
+function fillRecTypes(){
 	$.post("/recTypes", function(response) {
 		var recType = JSON.parse(response).result;
 		var recTypeString = "";
@@ -97,10 +145,11 @@ $("#submit").click(function() {
 
 		$("#recTypesText").html(recTypeString);
 	});
+}
 
+function fillRecPKMM(){
 	$.post("/recPKMN", function(response) {
 		var recPKMN = JSON.parse(response).result;
-		console.log(recPKMN);
 		var recPKMNString = "";
 		for(var i = 0; i< recPKMN.length; i++){
 			recPKMNString += recPKMN[i];
@@ -109,5 +158,4 @@ $("#submit").click(function() {
 
 		$("#recPKMNText").html(recPKMNString);
 	});
-
-});
+}

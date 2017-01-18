@@ -1,6 +1,11 @@
 <#assign content>
 
-<h1> Professor Bina Ry</h1>
+<!-- Header -->
+<div id="header">
+
+<div id="logo"></div>
+
+</div>
 
 <div id="totalChart">
 	<div id="pkmnSelectors">

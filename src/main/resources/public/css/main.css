@@ -1,55 +1,96 @@
+/* 
+	Header 
+*/
+
+#header{
+	position:relative;
+	background-color:black;
+	width:100%;
+	height:2.4em;
+	margin: 0 0;
+}
+
+#logo{
+	position:relative;
+	height:4.5em;
+	width:9.9em;		/* Should equal 2.2 * height*/
+	background-image:url("../images/logo.png");
+	background-size:100% 100%;
+}
+
 h1{
 	text-align:center;
 	margin: .33em auto;
 }
 
-#totalChart{
+/*
+	Selectors
+*/
+#pkmnSelectors{
 	position:relative;
 	display:block;
-	margin:0 auto;
-	height: 500px;
-}
-
-#pkmnSelectors{
-	position:absolute;
-	left:10px;
+	margin: 0 auto;
 }
 
 .pkmnSelector{
 	position:relative;
 	display:block;
 	margin-top: 10px;
-	margin-bottom:10px;
-	margin-left:10px;
-	color:blue;
-}
-
-.pkmnSelector p{
-	display:inline-block;
-	font-size:.75em;
-	margin: 0 0;
+	margin-bottom:30px;
+	margin-left:auto;
+	margin-right:auto;
+	color:black;
 }
 
 .pkmnSelector textarea{
 	display: inline-block;
-	height:1em;
-	width:5em;
+	border-radius:8px;
+	font-size:1.5em;
+	height:2em;
+	width:44%;
+	margin: 0 0.1em;
 	resize:none;
+	text-align:center;
+}
+
+.pkmnSelector .type1{
+	width:18.5%;
+}
+
+.pkmnSelector .type2{
+	width:18.5%;
+}
+
+.selectorClear{
+	position:relative;
+	font-size: .9em;
+	border-radius:8px;
+	width:12%;
+	border: 1px solid black;
+	height: 2em;
+	transition-duration: 0.3s;
+}
+
+.selectorClear:hover{
+	background-color:#e58370;
 }
 
 .autoBox{
 	position:absolute;
-	left:2.25em;
-	width:100px;
+	left:.25em;
+	width:42%;
 	height:100px;
-	background-color:gray;
+	border-radius:1px;
+	border: 1px solid black;
+	background-color:white;
+	box-shadow: 2px 2px 2px black;
 	overflow-y:scroll;
 	z-index:1;
 	visibility:hidden;
 }
 
 .autoSuggestion{
-	font-size:1em;
+	font-size:1.25em;
 	width:100%;
 	display:block;
 	text-align:center;
@@ -58,13 +99,30 @@ h1{
 	cursor:pointer
 }
 
+.autoSuggestion:hover{
+	background-color:#bec1c6;
+}
+
+#submit{
+	position:relative;
+	display: block;
+	width: 5em;
+	height: 2em;
+	margin: 0 auto;
+	/*top:2.5em;*/
+}
+
+/*
+	Type Chart
+*/
 #typeChart{
-	position:absolute;
+	position:relative;
 	right:10px;
-	width:500px;
+	width:100%;
 	height:500px;
 	background-color:gray;
 	text-align:center;
+	overflow-y:scroll;
 }
 
 .typeRow{

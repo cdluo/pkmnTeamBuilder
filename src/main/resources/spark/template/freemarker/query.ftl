@@ -1,74 +1,78 @@
 <#assign content>
 
-<h1> Professor Bina Ry</h1>
+<!-- Header -->
+<div id="header">
+	<div id="logo"></div>
+</div>
 
-<div id="totalChart">
+<!-- Form -->
+<div class="col-sm-6" style="position:relative; top:2.5em">
 	<div id="pkmnSelectors">
 		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
 
 		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
 
-		<div class="pkmnSelector">
-			<p>Name: </p> <textarea class="autocorrect"></textarea></textarea><div class="autoBox"></div>
-			<p>Type1: </p> <textarea class="type1"></textarea>
-			<p>Type2: </p> <textarea class="type2"></textarea>
+		<div class="pkmnSelector" style="margin-bottom: 15px">
+			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
+			<textarea class="type1" placeholder="type1"></textarea>
+			<textarea class="type2" placeholder="type2"></textarea>
 			<button class="selectorClear">Clear</button>
 		</div>
-
-		<button id="submit">Submit</button>
 	</div>
+	<button id="submit">Submit</button>
+</div>
 
+<!-- Chart -->
+<div class="col-sm-6" style="position:relative; top:2em">
 	<div id="typeChart">
 		<p id="typeChartText"></p>
 	</div>
 </div>
 
-<div id="recPKMN">
-	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Pokemon: </p>
-		<p id="recPKMNText"></p>
+<div class="col-sm-12" id="recTypes">
+	<p style = "position:relative; display:inline-block; margin-left:10px"> Your team is weak to: </p>
+	<p id="teamWeak"></p>
+
+	<br>
+
+	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Types: </p>
+	<p id="recTypesText"></p>
 </div>
 
-<div id="recTypes">
-	<div style="display:block">
-		<p style = "position:relative; display:inline-block; margin-left:10px"> Your team is weak to: </p>
-		<p id="teamWeak"></p>
-	</div>
-
-	<div style = "display:block">
-		<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Types: </p>
-		<p id="recTypesText"></p>
-	</div>
+<div class="col-sm-12" id="recPKMN">
+	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Pokemon: </p>
+	<p id="recPKMNText"></p>
 </div>
 
 </#assign>
