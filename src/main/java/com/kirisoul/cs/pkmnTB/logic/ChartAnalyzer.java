@@ -45,7 +45,11 @@ public class ChartAnalyzer {
       if(d >= 0){  //Do d >= 0 to lower standards, or d > 0 for higher standards
         sb.append(d + ": " + scores.get(d).toString() +"\n");
         for(String s: scores.get(d)){
-          recommend.add(s);
+          if(recommend.size() < 6){
+            recommend.add(s); 
+          }else{
+            break;
+          }
         }
       }
     }

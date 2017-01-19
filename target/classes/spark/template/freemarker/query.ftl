@@ -56,30 +56,39 @@
 <!-- Chart -->
 <div class="col-sm-6" style="position:relative; margin-top:1em; padding: 0 0;">
 	<div id="typeChart">
+		<div style="height:1em"></div>
 		<!-- Header Row-->
-		<div class = "rowSection">Type</div><div class = "rowSection">0.0x</div><div class = "rowSection">0.25x</div><div class = "rowSection">0.5x</div><div class = "rowSection">2.0x</div><div class = "rowSection rightBorder">4.0x</div>
+		<div class = "rowSection header">Type</div><div class = "rowSection header">0.0x</div><div class = "rowSection header">0.25x</div><div class = "rowSection header">0.5x</div><div class = "rowSection header">2.0x</div><div class = "rowSection header rightBorder">4.0x</div>
 
 		<div id="chartContent">
-			
+		</div>
+		<div style="height:1em"></div>
+	</div>
+</div>
+
+<div class="row" style="margin: 0 0">
+	<div class="col-sm-6" style="padding: 0 0">
+		<div class="typeBox" id="teamWeakBox">
+			<p class="typeLabel header">Team Weaknesses</p>
+			<div style="margin-left:.5em" id="teamWeakContent"></div>
+		</div>
+	</div>
+
+	<div class="col-sm-6" style="padding: 0 0">
+		<div class="typeBox" id="recTypes">
+			<p class="typeLabel header">Recommended Types</p>
+			<div style="margin-left:.5em" id="recTypeContent"></div>
 		</div>
 	</div>
 </div>
 
-<!-- Team Weaknesses -->
-<div class="col-sm-12" id="recTypes">
-	<p style = "position:relative; display:inline-block; margin-left:10px"> Your team is weak to: </p>
-	<p id="teamWeak"></p>
-
-	<br>
-
-	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Types: </p>
-	<p id="recTypesText"></p>
-</div>
-
 <!-- Recommended Pokemon -->
-<div class="col-sm-12" id="recPKMN">
-	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Pokemon: </p>
-	<p id="recPKMNText"></p>
+<div class="col-sm-12" style="margin: 0 0; padding: 0 0">
+	<div id="recPKMN">
+		<img class="placeHolderImg" src="../images/binaPlaceHolder.png">
+		<div id="dialogue">
+		</div>
+	</div>
 </div>
 
 </#assign>

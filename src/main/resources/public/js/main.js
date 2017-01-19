@@ -157,27 +157,27 @@ function multiplierColorCode(section, value){
 
 function fillTeamWeak(){
 	$.post("/teamWeak", function(response) {
+		$("#teamWeakContent").empty();
 		var teamWeak = JSON.parse(response).result;
-		var weakString = "";
-		for(var i = 0; i< teamWeak.length; i++){
-			weakString += teamWeak[i];
-			weakString += ", ";
-		}
 
-		$("#teamWeak").html(weakString);
+		for(var i = 0; i< teamWeak.length; i++){
+			var typeString = "<div class='typeSection whiteText " + teamWeak[i] + "'>" + teamWeak[i] + "</div>";
+			var type = $(typeString);
+			$("#teamWeakContent").append(type);
+		}
 	});
 }
 
 function fillRecTypes(){
 	$.post("/recTypes", function(response) {
+		$("#recTypeContent").empty();
 		var recType = JSON.parse(response).result;
-		var recTypeString = "";
-		for(var i = 0; i< recType.length; i++){
-			recTypeString += recType[i];
-			recTypeString += ", ";
-		}
 
-		$("#recTypesText").html(recTypeString);
+		for(var i = 0; i< recType.length; i++){
+			var typeString = "<div class='typeSection whiteText " + recType[i] + "'>" + recType[i] + "</div>";
+			var type = $(typeString);
+			$("#recTypeContent").append(type);
+		}
 	});
 }
 
@@ -190,6 +190,6 @@ function fillRecPKMM(){
 			recPKMNString += ", ";
 		}
 
-		$("#recPKMNText").html(recPKMNString);
+		$("#dialogue").html(recPKMNString);
 	});
 }
