@@ -113,12 +113,46 @@ $(".selectorClear").click(function() {
 function fillTeamChart(){
 	$.post("/teamChart", function(response) {
 		var teamChart = JSON.parse(response).result;
-		var teamChartBreak = teamChart.replace(/\n/g, '<br/>');
 
-		//teamChart is currently just a string.
+		$("#chartContent").empty();
 
-		$("#typeChartText").html(teamChartBreak);
+		for(var i=0; i<teamChart.length; i++){
+			var typeString = "<div class='rowSection whiteText " + teamChart[i][0] +"'>" + teamChart[i][0] + "</div>";
+			var multiString1 = "<div class='rowSection content " + multiplierColorCode(1, teamChart[i][1]) + "'>" + teamChart[i][1] + "</div>";
+			var multiString2 = "<div class='rowSection content " + multiplierColorCode(2, teamChart[i][2]) + "'>" + teamChart[i][2] + "</div>";
+			var multiString3 = "<div class='rowSection content " + multiplierColorCode(3, teamChart[i][3]) + "'>" + teamChart[i][3] + "</div>";
+			var multiString4 = "<div class='rowSection content " + multiplierColorCode(4, teamChart[i][4]) + "'>" + teamChart[i][4] + "</div>";
+			var multiString5 = "<div class='rowSection content " + multiplierColorCode(5, teamChart[i][5]) + "'>" + teamChart[i][5] + "</div>";
+
+			var type = $(typeString);
+			var multi1 = $(multiString1);
+			var multi2 = $(multiString2);
+			var multi3 = $(multiString3);
+			var multi4 = $(multiString4);
+			var multi5 = $(multiString5);
+
+			$("#chartContent").append(type);
+			$("#chartContent").append(multi1);
+			$("#chartContent").append(multi2);
+			$("#chartContent").append(multi3);
+			$("#chartContent").append(multi4);
+			$("#chartContent").append(multi5);
+		}
 	});
+}
+
+/*
+	Section: 0-5, representing 0, .25, .5, etc...
+	Value: # of PKMN weak/resistant to it.
+*/
+function multiplierColorCode(section, value){
+	if(value == 0){
+		return ""
+	}else if(section < 4){
+			return "green"
+	}else{
+		return "red"
+	}
 }
 
 function fillTeamWeak(){

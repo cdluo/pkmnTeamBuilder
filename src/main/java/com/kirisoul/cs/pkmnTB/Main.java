@@ -217,7 +217,7 @@ public final class Main {
     public Object handle(final Request req, final Response res) {
 
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
-          teamC.toString()).build();
+          teamC.toJSONArray()).build();
 
       return GSON.toJson(variables);
     }

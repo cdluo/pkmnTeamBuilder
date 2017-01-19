@@ -205,6 +205,25 @@ public class TeamChart {
     }
   }
   
+  public ArrayList<String[]> toJSONArray(){
+    ArrayList<String[]> chart = new ArrayList<String[]>();
+    
+    for(String s: teamChart.keySet()){
+      double[] values = teamChart.get(s);
+      String[] toAdd = new String[6];
+      toAdd[0] = s;
+      toAdd[1] = Integer.toString((int)values[0]);
+      toAdd[2] = Integer.toString((int)values[1]);
+      toAdd[3] = Integer.toString((int)values[2]);
+      toAdd[4] = Integer.toString((int)values[3]);
+      toAdd[5] = Integer.toString((int)values[4]);
+      
+      chart.add(toAdd);
+    }
+    
+    return chart;
+  }
+  
   public String toString(){
     StringBuilder sb = new StringBuilder();
     sb.append("Type    0    .25   .5    2   4\n");

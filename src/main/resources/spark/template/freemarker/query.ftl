@@ -6,7 +6,7 @@
 </div>
 
 <!-- Form -->
-<div class="col-sm-6" style="position:relative; top:2.5em">
+<div class="col-sm-6" style="position:relative; margin-top:2.75em; padding: 0 0;">
 	<div id="pkmnSelectors">
 		<div class="pkmnSelector">
 			<textarea class="autocorrect" placeholder="Pokemon"></textarea><div class="autoBox"></div>
@@ -54,12 +54,18 @@
 </div>
 
 <!-- Chart -->
-<div class="col-sm-6" style="position:relative; top:2em">
+<div class="col-sm-6" style="position:relative; margin-top:1em; padding: 0 0;">
 	<div id="typeChart">
-		<p id="typeChartText"></p>
+		<!-- Header Row-->
+		<div class = "rowSection header">Type</div><div class = "rowSection header">0.0x</div><div class = "rowSection header">0.25x</div><div class = "rowSection header">0.5x</div><div class = "rowSection header">2.0x</div><div class = "rowSection header rightBorder">4.0x</div>
+
+		<div id="chartContent">
+
+		</div>
 	</div>
 </div>
 
+<!-- Team Weaknesses -->
 <div class="col-sm-12" id="recTypes">
 	<p style = "position:relative; display:inline-block; margin-left:10px"> Your team is weak to: </p>
 	<p id="teamWeak"></p>
@@ -70,6 +76,7 @@
 	<p id="recTypesText"></p>
 </div>
 
+<!-- Recommended Pokemon -->
 <div class="col-sm-12" id="recPKMN">
 	<p style = "position:relative; display:inline-block; margin-left:10px"> Recommended Pokemon: </p>
 	<p id="recPKMNText"></p>

@@ -1,3 +1,95 @@
+body{
+	background-image:url("../images/debut.jpg");
+}
+
+.header{
+	background-color:#deecef;
+}
+
+.content{
+	background-color:#fffcef;
+}
+
+.red{
+	background-color:#f23224;
+}
+
+.green{
+	background-color:#53ea31;
+}
+
+.Normal{
+	background-color:#f0f2bf;
+}
+
+.Fire{
+	background-color:#ff6430;
+}
+
+.Water{
+	background-color:#429dff;
+}
+
+.Electric{
+	background-color:#fbff47;
+}
+
+.Grass{
+	background-color:#7def40;
+}
+
+.Ice{
+	background-color:#82fff2;
+}
+
+.Fighting{
+	background-color:#ce6a5c;
+}
+
+.Poison{
+	background-color:#891ac9;
+}
+
+.Ground{
+	background-color:#a06d14;
+}
+
+.Flying{
+	background-color:#1ceac8;
+}
+
+.Psychic{
+	background-color:#e751ff;
+}
+
+.Bug{
+	background-color:#a8cc7a;
+}
+
+.Rock{
+	background-color:#897060;
+}
+
+.Ghost{
+	background-color:#906fb7;
+}
+
+.Dragon{
+	background-color:#3d4aaf;
+}
+
+.Dark{
+	background-color:#45464f;
+}
+
+.Steel{
+	background-color:#a0a1a5;
+}
+
+.Fairy{
+	background-color:#fdaaff;
+}
+
 /* 
 	Header 
 */
@@ -6,7 +98,7 @@
 	position:relative;
 	background-color:black;
 	width:100%;
-	height:2.4em;
+	height:2.75em;
 	margin: 0 0;
 }
 
@@ -14,6 +106,8 @@
 	position:relative;
 	height:4.5em;
 	width:9.9em;		/* Should equal 2.2 * height*/
+	top:.5em;
+	left:.5em;
 	background-image:url("../images/logo.png");
 	background-size:100% 100%;
 }
@@ -28,6 +122,7 @@ h1{
 */
 #pkmnSelectors{
 	position:relative;
+	width:100%;
 	display:block;
 	margin: 0 auto;
 }
@@ -35,6 +130,7 @@ h1{
 .pkmnSelector{
 	position:relative;
 	display:block;
+	width:96%;
 	margin-top: 10px;
 	margin-bottom:30px;
 	margin-left:auto;
@@ -47,27 +143,30 @@ h1{
 	border-radius:8px;
 	font-size:1.5em;
 	height:2em;
-	width:44%;
-	margin: 0 0.1em;
+	width:46%;
+	margin: 0 0.1%;
 	resize:none;
 	text-align:center;
 }
 
 .pkmnSelector .type1{
-	width:18.5%;
+	width:19%;
 }
 
 .pkmnSelector .type2{
-	width:18.5%;
+	width:19%;
 }
 
 .selectorClear{
 	position:relative;
+	display:inline-block;
 	font-size: .9em;
+	top:.55em;
 	border-radius:8px;
 	width:12%;
 	border: 1px solid black;
 	height: 2em;
+	padding: 0 0;
 	transition-duration: 0.3s;
 }
 
@@ -77,8 +176,8 @@ h1{
 
 .autoBox{
 	position:absolute;
-	left:.25em;
-	width:42%;
+	left:.2em;
+	width:44%;
 	height:100px;
 	border-radius:1px;
 	border: 1px solid black;
@@ -109,7 +208,6 @@ h1{
 	width: 5em;
 	height: 2em;
 	margin: 0 auto;
-	/*top:2.5em;*/
 }
 
 /*
@@ -117,20 +215,33 @@ h1{
 */
 #typeChart{
 	position:relative;
-	right:10px;
-	width:100%;
+	display:block;
+	margin: .5em auto;
+	width:96%;
 	height:500px;
-	background-color:gray;
+	background-color:black;
 	text-align:center;
 	overflow-y:scroll;
 }
 
-.typeRow{
+.rowSection{
 	position:relative;
-	display:block;
-	height:1.5em;
-	margin: 0 0;
-	background-color:blue;
+	display:inline-block;
+	vertical-align:top;
+	text-align:center;
+	height:40px;
+	width: 16%;
+	padding-top: 10px;
+	border: 1px solid black;
+	border-right: none;
+}
+
+.rightBorder{
+	border-right: 1px solid black;
+}
+
+.borderless{
+	border: none;
 }
 
 #recPKMN{
