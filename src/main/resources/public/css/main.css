@@ -204,10 +204,10 @@ h1{
 
 #submit{
 	position:relative;
-	display: block;
-	width: 5em;
+	left:76.5%;
+	display: inline-block;
+	width: 20%;
 	height: 2em;
-	margin: 0 auto;
 	border-radius:5px;
 	border: 1px solid black;
 	transition-duration: 0.2s;
@@ -215,6 +215,67 @@ h1{
 
 #submit:hover{
 	background-color:#53ea31;
+}
+
+#immuneButton{
+	position:absolute;
+	display: inline-block;
+	left:1em;
+	width: 15%;
+	height: 2em;
+	border-radius:5px;
+	border: 1px solid black;
+	transition-duration: 0.2s;
+}
+
+#immuneButton:hover{
+	background-color:#53ea31;
+}
+
+#immuneWindow{
+	position:absolute;
+	left:-20em;
+	bottom:15em;
+	background-color: gray;
+	border: 1px solid black;
+	border-radius:5px;
+	height:215px;
+	width:200px;
+	transition-duration:0.5s;
+}
+
+.immuneClick{
+	position:relative;
+	display:inline-block;
+	margin:.25em .5em;
+	font-size: 1.2em;
+	width:60%;
+	border-radius:3px;
+	border: 1px solid black;
+	cursor:pointer;
+}
+
+.immuneClear{
+	position:absolute;
+	display: block;
+	left:.5em;
+	width: 5em;
+	height: 2em;
+	border-radius:5px;
+	border: 1px solid black;
+	transition-duration: 0.2s;
+}
+
+.immuneClear:hover{
+	background-color:#53ea31;
+}
+
+.immuneValue{
+	position:relative;
+	display:inline-block;
+	width:25%;
+	text-align:center;
+	margin: 0 0;
 }
 
 /*
@@ -229,6 +290,7 @@ h1{
 	background-color:black;
 	text-align:center;
 	overflow-y:scroll;
+	/*border-radius:5px;*/
 }
 
 .rowSection{
@@ -263,10 +325,12 @@ h1{
 	height:10em;
 	border: 1px solid black;
 	background-color:black;
+	/*border-radius:5px;*/
 }
 
 .typeLabel{
 	padding: .5em .5em;
+	/*border-radius:5px;*/
 }
 
 .typeSection{
@@ -279,6 +343,7 @@ h1{
 	padding-top: 10px;
 	border: 1px solid black;
 	border-right: none;
+	/*border-radius:5px;*/
 }
 
 /*

@@ -51,6 +51,16 @@
 		</div>
 	</div>
 	<button id="submit">Submit</button>
+	<button id="immuneButton" class=""> Abilities </div>
+	<div id="immuneWindow">
+		<div class="immuneRow"><div class="immuneClick Electric" style="margin-top:.5em"> Lightning Rod </div> <p class= "immuneValue" id="lightningRod">0</p></div>
+
+		<div class="immuneRow"><div class="immuneClick Ground"> Levitate </div> <p class= "immuneValue" id="levitate">0</p></div>
+		<div class="immuneRow"><div class="immuneClick Water"> Storm Drain </div> <p class= "immuneValue" id="stormDrain">0</p></div>
+		<div class="immuneRow"><div class="immuneClick Fire"> Flash Fire </div> <p class= "immuneValue" id="flashFire">0</p></div>
+		<div class="immuneRow"><div class="immuneClick Grass" style="margin-bottom:.5em"> Sap Sipper </div> <p class= "immuneValue" id="sapSipper">0</p></div>
+		<button class="immuneClear">Clear</button>
+	</div>
 </div>
 
 <!-- Chart -->
@@ -85,7 +95,7 @@
 <!-- Recommended Pokemon -->
 <div class="col-sm-12" style="margin: 0 0; padding: 0 0">
 	<div id="recPKMN">
-		<img class="placeHolderImg" src="../images/binaPlaceHolder.png">
+		<img id="placeHolderImg" src="../images/binaPlaceHolder.png">
 		<div id="dialogue">
 		</div>
 	</div>

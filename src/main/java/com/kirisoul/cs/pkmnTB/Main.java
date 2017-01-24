@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,7 @@ public final class Main {
     Spark.post("/teamWeak", new TeamWeakHandler());
     Spark.post("/recTypes", new RecTypesHandler());
     Spark.post("/recPKMN", new RecPKMNHandler());
+    Spark.post("/immunity", new ImmunityHandler());
   }
   
   //////////////////
@@ -199,6 +201,33 @@ public final class Main {
       
       System.out.println("\n" + teamC.toString());
 
+      Map<String, Object> variables = new ImmutableMap.Builder().put("result",
+          "true").build();
+
+      return GSON.toJson(variables);
+    }
+  }
+  
+  /**
+   * Adds Immunities based on abilities like Lightning Rod.
+   */
+  private static class ImmunityHandler implements Route {
+    @Override
+    public Object handle(final Request req, final Response res) {
+      QueryParamsMap qm = req.queryMap();
+      Map<String, String[]> types = qm.toMap();
+      
+      teamC.clearAbilityImmunities();
+      
+      for(String immuneNum: types.keySet()){
+        int numberImmune = Integer.parseInt(types.get(immuneNum)[0]);
+        for(int i=0; i<numberImmune; i++){
+          teamC.addImmunity(Integer.parseInt(immuneNum)); 
+          System.out.println("Immunity to " + 
+          tc.convertTypeNum(Integer.parseInt(immuneNum)) + " added!");
+        }
+      }
+      
       Map<String, Object> variables = new ImmutableMap.Builder().put("result",
           "true").build();
 

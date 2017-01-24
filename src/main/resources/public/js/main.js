@@ -80,6 +80,10 @@ $("#submit").click(function() {
 		data['p' + i + 't2'] = t2.value;
 	}
 
+
+	//Do this first to make sure team data is accurate.
+	loadImmunity();
+
 	$.post("/loadTeam", data, function(response) {
 		fillTeamChart();
 		fillTeamWeak();
@@ -122,7 +126,7 @@ function fillTeamChart(){
 			var multiString2 = "<div class='rowSection content " + multiplierColorCode(2, teamChart[i][2]) + "'>" + teamChart[i][2] + "</div>";
 			var multiString3 = "<div class='rowSection content " + multiplierColorCode(3, teamChart[i][3]) + "'>" + teamChart[i][3] + "</div>";
 			var multiString4 = "<div class='rowSection content " + multiplierColorCode(4, teamChart[i][4]) + "'>" + teamChart[i][4] + "</div>";
-			var multiString5 = "<div class='rowSection content " + multiplierColorCode(5, teamChart[i][5]) + "'>" + teamChart[i][5] + "</div>";
+			var multiString5 = "<div class='rowSection rightBorder content " + multiplierColorCode(5, teamChart[i][5]) + "'>" + teamChart[i][5] + "</div>";
 
 			var type = $(typeString);
 			var multi1 = $(multiString1);
@@ -168,6 +172,20 @@ function fillTeamWeak(){
 	});
 }
 
+function loadImmunity(){
+
+	//Needs to be this format
+	var immune = {};
+	immune[3]=parseInt(document.getElementById("lightningRod").innerHTML);	//Electric
+	immune[8]=parseInt(document.getElementById("levitate").innerHTML);	//Ground
+	immune[2]=parseInt(document.getElementById("stormDrain").innerHTML);	//Water
+	immune[1]=parseInt(document.getElementById("flashFire").innerHTML);	//Fire
+	immune[4]=parseInt(document.getElementById("sapSipper").innerHTML);	//Grass
+
+	$.post("/immunity", immune, function(response) {
+	});
+}
+
 function fillRecTypes(){
 	$.post("/recTypes", function(response) {
 		$("#recTypeContent").empty();
@@ -193,3 +211,42 @@ function fillRecPKMM(){
 		$("#dialogue").html(recPKMNString);
 	});
 }
+
+////////////////////////////////
+// Controlling Ability Window //
+////////////////////////////////
+
+$("#immuneButton").click(function() {
+	controlWindow();
+});
+
+function controlWindow(){
+
+	console.log("Controlling Window");
+	var abilWindow = document.getElementById("immuneWindow");
+	var abilButton = document.getElementById("immuneButton");
+
+	if(abilButton.classList.contains("closed")){
+		abilButton.classList.remove("closed");
+		abilWindow.style.transform = "translateX(21em)";
+		abilButton.innerHTML = "close";
+	}else{
+		abilButton.classList.add("closed");
+		abilWindow.style.transform = "translateX(0em)";
+		abilButton.innerHTML = "Abilities";
+	}
+}
+
+$(".immuneClick").click(function(){
+	var value = $(this).parent().find(".immuneValue");
+	var toAdd = value[0].innerHTML;
+	value[0].innerHTML = parseInt(toAdd)+1;
+});
+
+$(".immuneClear").click(function(){
+	var values = document.getElementsByClassName("immuneValue");
+
+	for(var i = 0; i < values.length; i++){
+		values[i].innerHTML = 0;
+	}
+});

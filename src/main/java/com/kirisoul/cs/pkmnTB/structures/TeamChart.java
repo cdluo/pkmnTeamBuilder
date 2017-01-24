@@ -10,14 +10,23 @@ import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 
 public class TeamChart {
   
+  /**
+   * The Pokemon objects currently in the chart.
+   */
   private ArrayList<Pokemon> pkmn;
+  /**
+   * String is the type, double[] is an array[5] 
+   * corresponding to: [0, .25, 0.5, 2x, 4x] weaknesses.
+   */
   private HashMap<String, double[]> teamChart;
   private TypeCalculator tc;
+  private ArrayList<String> abilityImmunities;
 
   public TeamChart(){
     pkmn = new ArrayList<Pokemon>();
     teamChart = new HashMap<String, double[]>();
     tc = new TypeCalculator();
+    abilityImmunities = new ArrayList<String>();
   }
   
   public void addPokemon(Pokemon p){
@@ -126,6 +135,44 @@ public class TeamChart {
         }
       }
     }
+  }
+  
+  /**
+   * Adds an immunity to the chart (for Storm Drain, LightningRod, etc...)
+   * @param i: an int that indicates the type to add an immunity to.
+   */
+  public void addImmunity(int i){
+    double[] row = teamChart.get(tc.convertTypeNum(i));
+    abilityImmunities.add(tc.convertTypeNum(i));
+    
+    if(row == null){
+      double [] newRow = {1,0,0,0,0};
+      teamChart.put(tc.convertTypeNum(i), newRow);
+    }else{
+      row[0]++;
+    }
+  }
+  
+  /**
+   * Clears immunities granted from abilites
+   */
+  public void clearAbilityImmunities(){
+    for(String s: abilityImmunities){
+      teamChart.get(s)[0]--;
+      
+      for(int i = 0; i < 5; i++){
+        if(teamChart.get(s)[i] != 0){
+          break;
+        }
+        
+        //If this happens, the row is empty, so remove it
+        if(i == 4){
+          teamChart.remove(s);
+        }
+      }
+    }
+    
+    abilityImmunities.clear();
   }
   
   public ArrayList<Integer> getTeamWeak(){
