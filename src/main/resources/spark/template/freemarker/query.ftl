@@ -95,7 +95,7 @@
 <!-- Recommended Pokemon -->
 <div class="col-sm-12" style="margin: 0 0; padding: 0 0">
 	<div id="recPKMN">
-		<img id="placeHolderImg" src="../images/binaPlaceHolder.png">
+		<img id="placeHolderImg" src="../images/binaPlaceholder.png">
 		<div id="dialogue">
 		</div>
 	</div>

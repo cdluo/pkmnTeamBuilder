@@ -12,18 +12,18 @@ import java.util.List;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
 
-public class PKMNDB {
+public class OldPKMNDB {
 
   private Connection conn;
   private TypeCalculator tc;
   
-  public PKMNDB() throws ClassNotFoundException, URISyntaxException{
+  public OldPKMNDB() throws ClassNotFoundException, URISyntaxException{
     Class.forName("org.sqlite.JDBC");
     
     try {
-      conn = getConnection();
+      conn = DriverManager.getConnection("jdbc:sqlite:Alola.db");
     } catch (SQLException e) {
-      System.out.println("ERROR: Connection to PKMNDB Failed!");
+      System.out.println("ERROR: Connection to PKMNDB failed!");
       e.printStackTrace();
       return;
     }
@@ -39,8 +39,8 @@ public class PKMNDB {
    * @throws SQLException exception
    */
   private static Connection getConnection() throws URISyntaxException, SQLException {
-    String dbUrl = "jdbc:postgresql://ec2-54-235-168-152.compute-1.amazonaws.com:5432/d60j980okbo60a?"
-        + "user=awwcplfmatfrdy&password=a8437de3ec3bb7c6a7df9a10f28c544bd92e2e521a8f337b2ce78914eb624316&sslmode=require";
+    String dbUrl = "postgres://awwcplfmatfrdy:a8437de3ec3bb7c6a7df9a10f28c544bd92e2e521a8f"
+        + "337b2ce78914eb624316@ec2-54-235-168-152.compute-1.amazonaws.com:5432/d60j980okbo60a";
 
     return DriverManager.getConnection(dbUrl);
   }
@@ -118,7 +118,7 @@ public class PKMNDB {
   }
   
   public void insertPokemon(Pokemon p) throws SQLException{
-    String query = "INSERT INTO PKMN VALUES (?,?,?);";
+    String query = "INSERT INTO PKMN VALUES(? ? ?);";
     PreparedStatement ps = conn.prepareStatement(query);
     
     ps.setString(1, p.getName());
@@ -126,13 +126,7 @@ public class PKMNDB {
     ps.setString(3, p.type2());
     
     ps.addBatch();
-    try{
-      ps.executeBatch();
-    }catch(SQLException e){
-      e.printStackTrace();
-      e.getNextException().printStackTrace();
-      System.exit(-1);
-    }
+    ps.executeBatch();
     ps.close();
   }
 }

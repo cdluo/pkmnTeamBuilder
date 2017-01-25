@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<button id="submit">Submit</button>
-	<button id="immuneButton" class=""> Abilities </div>
+	<button id="immuneButton" class="closed"> Abilities </div>
 	<div id="immuneWindow">
 		<div class="immuneRow"><div class="immuneClick Electric" style="margin-top:.5em"> Lightning Rod </div> <p class= "immuneValue" id="lightningRod">0</p></div>
 
@@ -95,7 +95,7 @@
 <!-- Recommended Pokemon -->
 <div class="col-sm-12" style="margin: 0 0; padding: 0 0">
 	<div id="recPKMN">
-		<img id="placeHolderImg" src="../images/binaPlaceHolder.png">
+		<img id="placeHolderImg" src="../images/binaPlaceholder.png">
 		<div id="dialogue">
 		</div>
 	</div>

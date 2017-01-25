@@ -14,6 +14,13 @@
   </properties>
 
   <dependencies>
+    <!-- Added for Heroku-->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.4.1208</version>
+    </dependency>
+    <!-- **************** -->
     <dependency>
       <groupId>net.sf.jopt-simple</groupId>
       <artifactId>jopt-simple</artifactId>
@@ -76,6 +83,59 @@
 
   <build>
     <plugins>
+      <!-- ************** For Heroku ********* -->
+      <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>1.1.3</version>
+        <configuration>
+          <appName>professor-bina</appName>
+          <processTypes>
+            <!-- Tell Heroku how to launch your application -->
+            <web>java -jar target/pkmnTB-1.0-jar-with-dependencies.jar</web>
+          </processTypes>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+            <execution>
+                <id>copy-dependencies</id>
+                <phase>package</phase>
+                <goals><goal>copy-dependencies</goal></goals>
+            </execution>
+        </executions>
+      </plugin>
+
+
+      <!-- Builds a Jar with all the dependencies-->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <descriptorRefs>
+            <!--  This tells Maven to include all dependencies -->
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>com.kirisoul.cs.pkmnTB.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <!-- *********** End Heroku ***************** -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -86,6 +146,8 @@
           <compilerArgument>-Xlint:all</compilerArgument>
         </configuration>
       </plugin>
+
+
     </plugins>
   </build>
 

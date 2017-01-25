@@ -2,6 +2,7 @@ package com.kirisoul.cs.pkmnTB;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
+import com.kirisoul.cs.pkmnTB.database.OldPKMNDB;
 import com.kirisoul.cs.pkmnTB.database.PKMNDB;
 import com.kirisoul.cs.pkmnTB.entities.Pokemon;
 import com.kirisoul.cs.pkmnTB.logic.TypeCalculator;
@@ -34,7 +36,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 
 public final class Main {
 
-  public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
+  public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException, URISyntaxException {
     new Main(args).run();
   }
 
@@ -55,14 +57,39 @@ public final class Main {
   // * Main Run Method * //
   /////////////////////////
   
-  private void run() throws IOException, ClassNotFoundException, SQLException {    
+  private void run() throws IOException, ClassNotFoundException, SQLException, URISyntaxException {    
     teamC = new TeamChart();
     db = new PKMNDB();
+//    OldPKMNDB Odb = new OldPKMNDB();
     ac = new AutoCorrecter(db);
     tc = new TypeCalculator();
     ca = new ChartAnalyzer(teamC);
     
-    runSparkServer(); 
+    
+//    for(Pokemon p: Odb.getAllPkmn()){
+//      db.insertPokemon(p);
+//      System.out.println(p.getName() + "|" + p.type1() + "|" + p.type2());
+//    }
+    
+    
+    
+    Spark.staticFileLocation("/public");
+    Spark.setPort(getHerokuAssignedPort());
+    
+    Spark.get("/home", (request, response) -> {
+      Map<String, Object> variables =
+        ImmutableMap.of();
+      return new ModelAndView(variables, "query.ftl");
+    }, new FreeMarkerEngine());
+    
+    Spark.post("/autocorrect", new AutoHandler());
+    Spark.post("/findPkmn", new FindPkmnHandler());
+    Spark.post("/loadTeam", new LoadTeamHandler());
+    Spark.post("/teamChart", new TeamChartHandler());
+    Spark.post("/teamWeak", new TeamWeakHandler());
+    Spark.post("/recTypes", new RecTypesHandler());
+    Spark.post("/recPKMN", new RecPKMNHandler());
+    Spark.post("/immunity", new ImmunityHandler());
   }
 
   ///////////////////
@@ -82,39 +109,52 @@ public final class Main {
     return new FreeMarkerEngine(config);
   }
 
-  private void runSparkServer() {
-    Spark.externalStaticFileLocation("src/main/resources/public");
-    FreeMarkerEngine freeMarker = createEngine();
-
-    // Setup Spark Routes
-    Spark.get("/home", new FrontHandler(), freeMarker);
-    Spark.post("/autocorrect", new AutoHandler());
-    Spark.post("/findPkmn", new FindPkmnHandler());
-    Spark.post("/loadTeam", new LoadTeamHandler());
-    Spark.post("/teamChart", new TeamChartHandler());
-    Spark.post("/teamWeak", new TeamWeakHandler());
-    Spark.post("/recTypes", new RecTypesHandler());
-    Spark.post("/recPKMN", new RecPKMNHandler());
-    Spark.post("/immunity", new ImmunityHandler());
+//  private void runSparkServer() {
+//    Spark.externalStaticFileLocation("src/main/resources/public");
+//    FreeMarkerEngine freeMarker = createEngine();
+//
+//    // Setup Spark Routes
+//    Spark.get("/home", new FrontHandler(), freeMarker);
+//    Spark.post("/autocorrect", new AutoHandler());
+//    Spark.post("/findPkmn", new FindPkmnHandler());
+//    Spark.post("/loadTeam", new LoadTeamHandler());
+//    Spark.post("/teamChart", new TeamChartHandler());
+//    Spark.post("/teamWeak", new TeamWeakHandler());
+//    Spark.post("/recTypes", new RecTypesHandler());
+//    Spark.post("/recPKMN", new RecPKMNHandler());
+//    Spark.post("/immunity", new ImmunityHandler());
+//  }
+  
+  /**
+   * From the Spark Heroku Tutorial.
+   * 
+   * @return port to use
+   */
+  static int getHerokuAssignedPort() {
+    ProcessBuilder processBuilder = new ProcessBuilder();
+    if (processBuilder.environment().get("PORT") != null) {
+        return Integer.parseInt(processBuilder.environment().get("PORT"));
+    }
+    return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
   }
   
   //////////////////
   // * Handlers * //
   //////////////////
 
-  /**
-   * Creates the Homepage
-   * 
-   * @return a modelandview object representing the homepage.
-   * @author cdluo
-   */
-  private class FrontHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of();
-      return new ModelAndView(variables, "query.ftl");
-    }
-  }
+//  /**
+//   * Creates the Homepage
+//   * 
+//   * @return a modelandview object representing the homepage.
+//   * @author cdluo
+//   */
+//  private class FrontHandler implements TemplateViewRoute {
+//    @Override
+//    public ModelAndView handle(Request req, Response res) {
+//      Map<String, Object> variables = ImmutableMap.of();
+//      return new ModelAndView(variables, "query.ftl");
+//    }
+//  }
   
   /**
    * AutoCorrect Handler

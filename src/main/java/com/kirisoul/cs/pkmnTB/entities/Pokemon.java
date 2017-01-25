@@ -17,9 +17,11 @@ public class Pokemon {
     name = name1;
     type1 = t1;
     type2 = t2;
+    
     tc = new TypeCalculator();
     weak = new ArrayList<double[]>();
     strong = new ArrayList<double[]>();
+    
     calculateEffectiveness();
   }
   
